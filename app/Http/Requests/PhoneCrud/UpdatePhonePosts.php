@@ -1,6 +1,6 @@
 <?php
     namespace App\Http\Requests\PhoneCrud;
-    use Illuminate\Foundation\Http\FormRequest;
+    
     
     class UpdatePhonePosts extends CreatePhonePosts
     {
