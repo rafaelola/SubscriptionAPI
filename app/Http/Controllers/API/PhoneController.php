@@ -48,15 +48,16 @@ class PhoneController extends Controller
      *
      * @return JsonResponse
      */
-    public static function updatePhone(UpdatePhonePosts $request): JsonResponse {
+    public static function updatePhone(UpdatePhonePosts $request): JsonResponse
+    {
         
         $validated = Validator::make($request->all(), $request->rules(),
             $request->messages());
         if ($validated->fails()) {
-            response()->json(['msg' => $request->messages()], 422);
+            response()->json(['msg' => $request->all()], 422);
         }
         // Type casting array to object
-        $data = (object)$validated->getData();
+      $data = (object)$validated->getData();
         /**
          * @var $cusPhone CustomerPhones
          */

@@ -14,7 +14,8 @@
             
             $keys = array_keys(parent::$_rules);
             $values = array_values(parent::$_rules);
-            $values[0] = 'required|max:20|min:3|string|regex:/^(\+44\s?7\d{3}|\(?07\d{3}|unique:customer_phones,id,' . $this->route('id');
+            $phoneVals = ['required','max:20','min:3','string','unique:customer_phones,id,' . $this->route('id'),'regex:/^(\+44\s?7\d{3}|\(?07\d{3}\)|\(?01\d{3}\)?)\s?\d{3}\s?\d{3}$/'];
+            $values[0] = $phoneVals;
             parent::$_rules = array_combine($keys, $values);
             
             return array_merge(parent::$_rules, [
