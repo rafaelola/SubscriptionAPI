@@ -31,8 +31,9 @@
     /**
      * CRUD Products
      */
-    Route::group(['prefix' => 'phones'], function () {
-        Route::get('', 'API\PhoneController@getAll')->middleware('auth');
-        Route::post('', 'API\PhoneController@createPhone')->middleware('auth');
+    Route::group(['prefix' => 'products'], function () {
+        Route::get('', 'API\ProductController@getAll')->middleware('auth');
+        Route::post('', 'API\ProductController@createProduct')->middleware('auth');
+       
         
     });
