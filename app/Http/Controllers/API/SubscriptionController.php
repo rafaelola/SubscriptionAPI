@@ -10,6 +10,7 @@
     use Validator;
     use App\Products;
     use App\CustomerPhones;
+    use App\Http\Requests\SubscriptionCrud\SubscribePosts;
     
     class SubscriptionController extends Controller
     {
@@ -22,32 +23,49 @@
         {
             return response()->json(Subcription::all()->toArray(), 200);
         }
-        
-        public static function subscribe(SubscribePosts $request): JsonResponse
+    
+    
+        /** Susbcribes customer phone number to a product
+         * @param Request $request
+         *
+         * @return JsonResponse
+         * @throws \Illuminate\Validation\ValidationException
+         */
+        public function subscribe(Request $request): JsonResponse
         {
-            $validated = Validator::make($request->all(), $request->rules(),
-                $request->messages());
-            if ($validated->fails()) {
-                response()->json(['UnprocessableEntity:' => $request->messages()], 422);
-            }
-            // Type casting array to object
-            $data = (object)$validated->getData();
-            try {
-                $existingPhone = CustomerPhones::isPhoneExist($data->msisdn);
-            } catch (ModelNotFoundException $e) {
-                throwException($e);
-            }
-            try {
-                $existingProduct = Products::findOrFail($data->product_id);
-            } catch (ModelNotFoundException $e) {
-                throwException($e);
-            }
+            $this->validate($request,['msisdn' => 'required|integer',
+                                'product_id' => 'required|integer'
+                ],['msisdn.required' => 'Id is required',
+                   'msisdn.integer'  => 'This entry can only contain integer',
+                   'product_id.required' => 'Id is required',
+                   'product_id.integer'  => 'This entry can only contain integer',]);
+      
             
-            $subcription = SubscribePosts::create([
-                'msisdn'     => $data->msisdn,
-                'product_id' => $data->product_id,
-                'subscribe_date' => now()->toDateTimeString()
-            ]);
-            return response()->json(['id' => $subcription->id], 200);
+            try {
+                CustomerPhones::findOrFail($request->msisdn);
+            } catch (ModelNotFoundException $e) {
+                return response()->json(['ModelNotFound' => $e->getMessage()],404);
+            }
+            try {
+               Products::findOrFail($request->product_id);
+            } catch (ModelNotFoundException $e) {
+                return response()->json(['ModelNotFound' => $e->getMessage()],404);
+            }
+            $subcription = new Subcription();
+            $subcription->msisdn = $request->msisdn;
+            $subcription->product_id = $request->product_id;
+            $subcription->subscribe_date = now();
+            $subcription->save();
+           
+            return response()->json($subcription->id, 201);
         }
+        
+        
+        public function unsubscribe(Request $request): JsonResponse
+        {
+        
+        }
+        
+        
+        
     }
