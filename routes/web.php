@@ -44,5 +44,6 @@
         Route::get('', 'API\SubscriptionController@getAll')->middleware('auth');
         Route::post('/subscribe', 'API\SubscriptionController@subscribe')->middleware('auth');
         Route::post('/unsubscribe', 'API\SubscriptionController@unsubscribe')->middleware('auth');
+        Route::post('/search', 'API\SubscriptionController@findSubscription')->middleware('auth');
         
     });

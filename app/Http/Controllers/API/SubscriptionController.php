@@ -63,8 +63,14 @@
             
             return response()->json($subcription->id, 200);
         }
-        
-        
+    
+    
+        /** Unsuscribe Subscription using option product_id and required msisdn
+         * @param Request $request
+         *
+         * @return JsonResponse
+         * @throws \Illuminate\Validation\ValidationException
+         */
         public function unsubscribe(Request $request): JsonResponse
         {
             $this->validate($request, [
@@ -131,6 +137,44 @@
             }
             return response()->json(['ModelNotFound'], 404);
             
+        }
+    
+    
+        /** Returns matching subscription using msisdn
+         * @param Request $request
+         *
+         * @return JsonResponse
+         * @throws \Illuminate\Validation\ValidationException
+         */
+        public function findSubscription(Request $request): JsonResponse
+        {
+            $this->validate($request, [
+                'msisdn'     => 'required|integer'
+            ], [
+                'msisdn.required'    => 'Id is required',
+                'msisdn.integer'     => 'This entry can only contain integer',
+                
+            ]);
+            try {
+                CustomerPhones::findOrFail($request->msisdn);
+            } catch (ModelNotFoundException $e) {
+                return response()->json(['ModelNotFound' => $e->getMessage()], 404);
+            }
+           
+    
+            try {
+                $foundMSIDN = Subcription::where('msisdn',$request->msisdn)->paginate(15);
+                
+            } catch (ModelNotFoundException $e) {
+                return response()->json(['ModelNotFound' => $e->getMessage()], 404);
+            }
+    
+            if (null !== $foundMSIDN) {
+                return response()->json($foundMSIDN, 200);
+        
+            }
+            return response()->json(['ModelNotFound'], 404);
+    
         }
         
         
