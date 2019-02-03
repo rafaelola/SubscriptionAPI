@@ -32,4 +32,14 @@ class CustomerPhones extends Model
     protected $hidden = [
         'created_at', 'updated_at','delete_reason'
     ];
+    
+    /** Return existing phone instance
+     * @param int $id
+     *
+     * @return CustomerPhones|CustomerPhones[]|\Illuminate\Database\Eloquent\Collection|Model
+     */
+    public static function isPhoneExist($id)
+    {
+        return self::findOrFail($id);
+    }
 }

@@ -29,4 +29,15 @@ class Products extends Model
      * @var bool
      */
     public $timestamps = false;
+    
+    
+    /**
+     * @param int $id
+     *
+     * @return Products|Products[]|\Illuminate\Database\Eloquent\Collection|Model
+     */
+    public static function isProductExist($id)
+    {
+        return self::findOrFail($id);
+    }
 }

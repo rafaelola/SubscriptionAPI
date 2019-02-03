@@ -34,6 +34,14 @@
     Route::group(['prefix' => 'products'], function () {
         Route::get('', 'API\ProductController@getAll')->middleware('auth');
         Route::post('', 'API\ProductController@createProduct')->middleware('auth');
-       
+        
+    });
+    
+    /**
+     * CRUD Subscription
+     */
+    Route::group(['prefix' => 'subscriptions'], function () {
+        Route::get('', 'API\SubscriptionController@getAll')->middleware('auth');
+        Route::post('/subscribe', 'API\SubscriptionController@subscribe')->middleware('auth');
         
     });

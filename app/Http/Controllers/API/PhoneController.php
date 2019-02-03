@@ -67,4 +67,7 @@ class PhoneController extends Controller
         $cusPhone->save();
         return response()->json(null, 204);
     }
+    
+    
+    
 }
