@@ -11,7 +11,7 @@ class CreatePhonePosts extends FormRequest
      * @var array $_rules
      */
     protected static $_rules = [
-        'phone_no' => 'required|max:20|min:3|string|unique:customer_phones,phone_no|regex:/^(\+44\s?7\d{3}|\(?07\d{3}\)|\(?01\d{3}\)?)\s?\d{3}\s?\d{3}$/',
+        'phone_no' => ['required','max:20','min:3','string','unique:customer_phones,phone_no','regex:/^(\+44\s?7\d{3}|\(?07\d{3}\)|\(?01\d{3}\)?)\s?\d{3}\s?\d{3}$/'],
         'display_name'  => 'required|max:191|min:2|string',
         'delete_reason' => 'nullable|string'
     

@@ -33,7 +33,7 @@ class PhoneController extends Controller
         $validated = Validator::make($request->all(), $request->rules(),
             $request->messages());
         if ($validated->fails()) {
-            response()->json($request->messages(), 422);
+            response()->json(['msg' => $request->messages()], 422);
         }
         // Type casting array to object
         $data = (object)$validated->getData();
@@ -53,7 +53,7 @@ class PhoneController extends Controller
         $validated = Validator::make($request->all(), $request->rules(),
             $request->messages());
         if ($validated->fails()) {
-            response()->json($request->messages(), 422);
+            response()->json(['msg' => $request->messages()], 422);
         }
         // Type casting array to object
         $data = (object)$validated->getData();

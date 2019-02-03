@@ -22,6 +22,7 @@
      * Customer phones
      */
     Route::group(['prefix' => 'phones'], function () {
-        Route::get('', 'API\PhoneController@getAll');
+        Route::get('', 'API\PhoneController@getAll')->middleware('auth');
+        Route::post('', 'API\PhoneController@createPhone')->middleware('auth');
        
     });
