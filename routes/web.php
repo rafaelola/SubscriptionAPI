@@ -23,8 +23,8 @@
      */
     Route::group(['prefix' => 'phones'], function () {
         Route::get('', 'API\PhoneController@getAll')->middleware('auth');
-        Route::post('', 'API\PhoneController@createPhone')->middleware('auth');
-        Route::put('/{id}', 'API\PhoneController@updatePhone')->middleware('auth');
+        Route::post('/create', 'API\PhoneController@createPhone')->middleware('auth');
+        Route::put('/update/{id}', 'API\PhoneController@updatePhone')->middleware('auth');
     
     
     });

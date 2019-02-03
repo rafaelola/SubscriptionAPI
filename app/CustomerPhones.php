@@ -30,7 +30,7 @@ class CustomerPhones extends Model
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at','delete_reason'
+        'delete_reason','deleted_at'
     ];
     
     /** Return existing phone instance

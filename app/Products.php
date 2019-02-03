@@ -31,6 +31,9 @@ class Products extends Model
     public $timestamps = false;
     
     
+    
+    
+    
     /**
      * @param int $id
      *
