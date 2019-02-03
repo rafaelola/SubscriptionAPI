@@ -43,5 +43,6 @@
     Route::group(['prefix' => 'subscriptions'], function () {
         Route::get('', 'API\SubscriptionController@getAll')->middleware('auth');
         Route::post('/subscribe', 'API\SubscriptionController@subscribe')->middleware('auth');
+        Route::post('/unsubscribe', 'API\SubscriptionController@unsubscribe')->middleware('auth');
         
     });
