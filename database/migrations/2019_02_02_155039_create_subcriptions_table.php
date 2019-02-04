@@ -17,7 +17,7 @@ class CreateSubcriptionsTable extends Migration
             $table->increments('id');
             $table->dateTime('subscribe_date')->nullable();
             $table->dateTime('unsubscribe_date')->nullable();
-            $table->integer('msisdn')->index('msisdn')->unique();
+            $table->integer('msisdn')->index('msisdn');
             $table->integer('product_id');
             $table->softDeletes();
             $table->timestamps();
