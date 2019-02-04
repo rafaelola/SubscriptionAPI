@@ -43,3 +43,55 @@ In no specific order:
 - Allow changing of returned data type.
 - Allow options requests to see supported data types for returned data and accepted data.
 - Anything else you consider to be beneficial
+
+
+
+
+Technical Solution
+
+==============
+
+### Database & Migration:
+
+- **CustomerPhones table**: 
+     - Unique **phone_no** column, to ensure the only unique value insertion.
+     - Soft delete **deleted_at** column, this flag can aid in ensuring GDPR rules are adhered to (Since we are dealing with phone numbers).
+
+
+- **Products table**: 
+     - **product_by_user_id** column, to help identify who added the products.
+
+- **Subscriptions table**: 
+     - **subscribe_date** column, to help identify what dateTime the user susbscribed.
+     - **unsubscribe_date** column, to help identify what dateTime the user unsusbscribed.
+   - Soft delete **deleted_at** column, this flag can aid in ensuring GDPR rules are adhered to (Since we are dealing with subscription via phone number).
+- **msisdn** column, indexed to help aid in searching(partitions)
+
+### Validation :
+- **CreateProductPosts**:
+ - **validation rules**, name is required, type string & product is nullable and numeric.
+
+- **CreatePhonePosts(super-class)** && **UpdatePhonePosts**(child):
+ - **validation rules**, phone is required, type string & regex for valid phone numbers.
+
+
+### Controllers :
+- **API\PhoneController** - CRUD functions
+- **API\ProductController**  - CRUD functions
+- **API\SubscriptionController** - subscribe, unsubscribe and search
+- **API\ApiPhoneValidator ** - using Libphone number library to validated phone numbers before DB insertion. ref: https://libphonenumber-for-php.readthedocs.io/en/latest/PhoneNumberUtil/#example-numbers
+
+### ResponseMacro :
+Aids custom response message, with titles, status and message/
+- **response()->json('success')** - CRUD functions
+- **response()->json('error')**  - CRUD functions
+
+
+### Improvements:
+- Before subscription a quick check if subscription for a given product using the phone number already exist.(Another solution is use **msisdn** as a foreign key (relationship between tables)).
+- Can use lib phone library to validate phone numbers
+- Use Twilio library for two-fa registration https://www.twilio.com/authy
+- Middleware for GDRP (In scenario, where customer phone numbers are to be deleted, a pop up where the user have to acknlowledge GDRP rules, before deletion)
+- Move to api routes; using laravel Passport (token-based authentication)
+- Testing (Unfortunately due deadline was unable to write test cases)
+
