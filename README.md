@@ -48,7 +48,6 @@ In no specific order:
 
 
 Technical Solution
-
 ==============
 
 ### Database & Migration:
