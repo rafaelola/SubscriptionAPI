@@ -93,4 +93,4 @@ Aids custom response message, with titles, status and message/
 - Middleware for GDRP (In scenario, where customer phone numbers are to be deleted, a pop up where the user have to acknlowledge GDRP rules, before deletion)
 - Move to api routes; using laravel Passport (token-based authentication)
 - Testing (Unfortunately due deadline was unable to write test cases)
-
+- SOLID Principle & Factory Pattern
