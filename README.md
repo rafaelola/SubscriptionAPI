@@ -81,7 +81,7 @@ Technical Solution
 - **API\ApiPhoneValidator** - using Libphone number library to validated phone numbers before DB insertion. ref: https://libphonenumber-for-php.readthedocs.io/en/latest/PhoneNumberUtil/#example-numbers
 
 ### ResponseMacro :
-Aids custom response message, with titles, status and message/
+Aids custom response message, with titles, status and message
 - **response()->json('success')** - CRUD functions
 - **response()->json('error')**  - CRUD functions
 
@@ -94,3 +94,4 @@ Aids custom response message, with titles, status and message/
 - Move to api routes; using laravel Passport (token-based authentication)
 - Testing (Unfortunately due deadline was unable to write test cases)
 - SOLID Principle & Factory Pattern
+- Sanitization of posted data 
